@@ -5,7 +5,9 @@ from . import views
 urlpatterns = [
     path("", views.queryAll, name="queryAll"),
     path("page/<str:num>/", views.queryAll),
-    path("post/<str:id>/", views.detail, name="detail"),
+    path("post/<int:id>/", views.detail, name="detail"),
+    path('category/<int:id>/', views.queryPostByCid),
+    path('archive/<str:year>/<str:month>/', views.queryPostByCreated),
 ]
 
 

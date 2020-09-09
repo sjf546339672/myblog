@@ -1,6 +1,7 @@
 from django.db import models
-
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
+from django.db.models import Manager
 
 
 class Category(models.Model):
@@ -28,9 +29,10 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True, verbose_name="标题")
     desc = models.CharField(max_length=100, verbose_name="描述")
-    content = models.TextField(verbose_name="内容")
+    # null不为空表示数据库不为空, blank表示表单不为空，
+    content = RichTextUploadingField(null=True, blank=True, verbose_name="内容")
     created = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
-    categpry = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="类别")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="类别")
     tag = models.ManyToManyField(Tag, verbose_name="标签")
 
     class Meta:
