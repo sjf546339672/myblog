@@ -1,6 +1,5 @@
 import math
 import re
-
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import Post
@@ -17,7 +16,7 @@ def queryAll(request, num=1):
 
     # 生成页码数列表
     # 每页开始页码
-    begin = (num - int(math.ceil(10.0 / 2)))
+    begin = (num - int(math.ceil(10.0/2)))
     if begin < 1:
         begin = 1
 
@@ -31,7 +30,7 @@ def queryAll(request, num=1):
     else:
         begin = end - 9
 
-    pageList = range(begin, end + 1)
+    pageList = range(begin, end+1)
 
     return render(request, "index.html", {"postList": perpageList,
                                           "pageList": pageList,
