@@ -39,6 +39,32 @@ img_path = os.path.join(os.getcwd(), "media", photo.replace("/", "\\"))
 9. haystack six在django3.x中安装问题问题
 https://blog.csdn.net/weixin_44485643/article/details/104243048
 
+10.富文本编辑器的使用
+# 安装库文件
+pip install django-ckeditor
+# 配置第三方应用
+INSTALLED_APPS = [
+    "ckeditor",
+    "ckeditor_uploader",  # 上传文件时用
+]
+# 配置MEDIA映射路径
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "upload/"
+
+# 配置项目包下的映射路径
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('ckeditor', include("ckeditor_uploader.urls")),
+]
+if DEBUG:
+    from django.views.static import serve
+    urlpatterns.append(url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT})) # 系统自动读取
+
+# 修改模型
+from ckeditor_uploader.fields import RichTextUploadingField
+
+
 
 前端
 1.

@@ -1,8 +1,9 @@
 import math
 import re
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Post
+from .models import *
 
 
 def queryAll(request, num=1):
@@ -10,7 +11,7 @@ def queryAll(request, num=1):
     # 获取所有帖子信息
     postList = Post.objects.all().order_by("-created")
     # 创建分页对象
-    paginator = Paginator(postList, 1)
+    paginator = Paginator(postList, 2)
     # 获取当前页数据
     perpageList = paginator.page(num)
 
@@ -31,8 +32,8 @@ def queryAll(request, num=1):
         begin = end - 9
 
     pageList = range(begin, end+1)
-
     return render(request, "index.html", {"postList": perpageList,
+                                          "lenpostList": len(perpageList),
                                           "pageList": pageList,
                                           "currentNum": num})
 
@@ -55,3 +56,10 @@ def queryPostByCid(request, id):
 def queryPostByCreated(request, year, month):
     postList = Post.objects.filter(created__year=year, created__month=month)
     return render(request, 'article.html', {'postList': postList})
+
+
+def DeleteView(request, id):
+    Post.objects.filter(id=id).delete()
+    postList = Post.objects.all()
+    return render(request, "index.html", {"postList": postList,
+                                          "lenpostList": len(postList)})

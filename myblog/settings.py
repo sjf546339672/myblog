@@ -24,9 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'leivv6wt%!7p8w+#d-h$ot4-qtqtjp$(g9s)hfae^-b5%_e@3q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["shijf.pythonanywhere.com"]
+# ALLOWED_HOSTS = ["shijf.pythonanywhere.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -131,6 +132,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static", "css"),
+    os.path.join(BASE_DIR, "static", "images"),
 ]
 
 MEDIA_URL = "/media/"
@@ -141,6 +143,7 @@ CKEDITOR_UPLOAD_PATH = "upload/"
 # 指定生成的索引路径
 HAYSTACK_CONNECTIONS = {
     'default': {
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'ENGINE': 'post.whoosh_cn_backend.WhooshEngine',
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     },

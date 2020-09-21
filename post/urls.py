@@ -8,6 +8,7 @@ urlpatterns = [
     path("post/<int:id>/", views.detail, name="detail"),
     path('category/<int:id>/', views.queryPostByCid),
     path('archive/<str:year>/<str:month>/', views.queryPostByCreated),
+    path('delete/<int:id>/', views.DeleteView, name="delete"),
 ]
 
 
